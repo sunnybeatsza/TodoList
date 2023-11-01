@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { store } from './app/store';
+import store from '../src/app/store'; // Update the path according to your directory structure
 import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,4 +13,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-

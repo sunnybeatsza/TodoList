@@ -1,8 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import listReducer from '../features/list/listSlice'
+import { configureStore } from '@reduxjs/toolkit';
+import todosReducer from '../features/list/listSlice'; // Import your todoSlice or any other reducers
 
-export const store = configureStore({
-    reducer: {
-        list: listReducer,
-    }
-})
+const store = configureStore({
+  reducer: {
+    todos: todosReducer,
+    // Add more reducers here if available
+  },
+});
+
+export default store;
