@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 .container-form {
@@ -7,4 +7,9 @@
   height: 20rem;
   width: 20rem;
   margin-left: 5rem;
+}
+
+.fade-out {
+  opacity: 0.5; /* Adjust the opacity as desired */
+  transition: opacity 0.5s ease-in-out; /* Add a transition for a smooth effect */
 }
