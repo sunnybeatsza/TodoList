@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addTodo, editTodo, deleteTodo, toggleTodo } from './listSlice';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 const List = () => {
   const todos = useSelector(state => state.todos);
@@ -13,6 +16,7 @@ const List = () => {
   const [showModal, setShowModal] = useState(false); // State to handle modal visibility
   const [showEmptyTodoModal, setShowEmptyTodoModal] = useState(false);
   const [todoCount, setTodoCount] = useState(0);
+   const [showInfoModal, setShowInfoModal] = useState(false);
 
   useEffect(() => {
     setTodoCount(todos.length);
@@ -77,19 +81,29 @@ const List = () => {
     closeModal();
   };
 
+   const handleInfoClick = () => {
+    setShowInfoModal(true);
+  };
+
+  const handleInfoModalClose = () => {
+    setShowInfoModal(false);
+  };
+
   return (
     <div>
+      <h2>Total Todos: {todoCount}</h2>
       <input
         type="text"
         value={newTodoText}
         onChange={handleNewTodoChange}
         onKeyDown={handleNewTodoKeyDown}
         placeholder="Enter new todo..."
+        className='mx-2 my-2'
       />
-      <button onClick={handleAdd}>Add Todo</button>
+      <button onClick={handleAdd} className='my-2 btn btn-primary'>Add Todo</button>
       <ul>
         {todos?.map(todo => (
-          <li key={todo.id}>
+          <li key={todo.id}> 
             {editing === todo.id ? (
               <Modal show={showModal} onHide={closeModal}>
                 <Modal.Header closeButton>
@@ -113,12 +127,18 @@ const List = () => {
                 <span style={{ opacity: todo.completed ? 0.5 : 1 }}>
                   {todo.text}
                 </span>
-                <button onClick={() => openModal(todo.id, todo.text)}>Edit</button>
-                <button onClick={() => handleDelete(todo.id)}>Delete</button>
+                <button onClick={() => openModal(todo.id, todo.text)} 
+                className='mx-2 my-2 btn btn-success'
+                disabled={todo.completed}
+                >Edit</button>
+                <button onClick={() => handleDelete(todo.id)}
+                className='btn btn-danger'
+                >Delete</button>
                 <input
                   type="checkbox"
                   checked={todo.completed}
                   onChange={() => handleToggle(todo.id)}
+                  className='ms-2'
                 />
               </>
             )}
@@ -139,7 +159,36 @@ const List = () => {
         </Modal.Footer>
       </Modal>
 
-      <h2>Total Todos: {todoCount}</h2>
+      
+      
+      <OverlayTrigger
+        placement="top"
+        overlay={<Tooltip id="tooltip">Click for instructions</Tooltip>}
+      >
+        <i className="bi bi-info-square" onClick={handleInfoClick}></i>
+      </OverlayTrigger>
+
+      {/* Modal for showing instructions */}
+      <Modal show={showInfoModal} onHide={handleInfoModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Instructions</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            <ol>
+              <li>Add a list item using the form</li>
+              <li>The edit button will allow you to make changes</li>
+              <li>One you complete a to-do list item select completed</li>
+              <li>Have fun!</li>
+            </ol>
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleInfoModalClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

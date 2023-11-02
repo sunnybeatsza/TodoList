@@ -5,8 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="App">
-      <h1>To-do list</h1>
-      <List />
+      <div className='container-form'>
+        <h1 className='my-4'>To-do list</h1>
+        <List />
+      </div>
     </div>
   );
 }

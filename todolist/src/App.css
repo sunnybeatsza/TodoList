@@ -1,15 +1,26 @@
 .App {
-  text-align: left;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
 .container-form {
   border: 2px solid purple;
-  height: 20rem;
+  height: auto;
   width: 20rem;
-  margin-left: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  border-radius: 10%;
+  padding: 2rem;
 }
 
 .fade-out {
   opacity: 0.5; /* Adjust the opacity as desired */
   transition: opacity 0.5s ease-in-out; /* Add a transition for a smooth effect */
+}
+
+li {
+  text-decoration: none;
 }
